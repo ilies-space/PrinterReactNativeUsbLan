@@ -1,114 +1,94 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
+ * @flow
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {
-  SafeAreaView,
+  AppRegistry,
+  Button,
   StyleSheet,
-  ScrollView,
-  View,
+  NativeModules,
+  Platform,
   Text,
-  StatusBar,
+  View,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+export default class RNPrintExample extends Component {
+  state = {
+    selectedPrinter: null,
+  };
+
+  // @NOTE iOS Only
+  selectPrinter = async () => {
+    const selectedPrinter = await RNPrint.selectPrinter({x: 100, y: 100});
+    this.setState({selectedPrinter});
+  };
+
+  // @NOTE iOS Only
+  silentPrint = async () => {
+    if (!this.state.selectedPrinter) {
+      alert('Must Select Printer First');
+    }
+
+    const jobName = await RNPrint.print({
+      printerURL: this.state.selectedPrinter.url,
+      html: '<h1>Silent Print</h1>',
+    });
+  };
+
+  async printHTML() {
+    await RNPrint.print({
+      html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>',
+    });
+  }
+
+  async printPDF() {
+    alert('not availble');
+  }
+
+  async printRemotePDF() {
+    await RNPrint.print({
+      filePath: 'https://graduateland.com/api/v2/users/jesper/cv',
+    });
+  }
+
+  customOptions = () => {
+    return (
+      <View>
+        {this.state.selectedPrinter && (
+          <View>
+            <Text>{`Selected Printer Name: ${this.state.selectedPrinter.name}`}</Text>
+            <Text>{`Selected Printer URI: ${this.state.selectedPrinter.url}`}</Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+        )}
+        <Button onPress={this.selectPrinter} title="Select Printer" />
+        <Button onPress={this.silentPrint} title="Silent Print" />
+      </View>
+    );
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {Platform.OS === 'ios' && this.customOptions()}
+        <Button onPress={this.printHTML} title="Print HTML" />
+        <Button onPress={this.printPDF} title="Print PDF" />
+        <Button onPress={this.printRemotePDF} title="Print Remote PDF" />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
 });
-
-export default App;
