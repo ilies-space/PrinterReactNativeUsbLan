@@ -8,3 +8,5 @@ export default function App() {
     </View>
   );
 }
+
+// npm install react-native-usb-printer --save
