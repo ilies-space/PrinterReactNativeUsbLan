@@ -1,8 +1,9 @@
-import React from 'react';
-import {Button, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Button, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {RNUSBPrinter} from 'react-native-usb-printer';
 
 export default function App() {
+  const [textContent, settextContent] = useState('hello World');
   function connectPrinter() {
     RNUSBPrinter.getUSBDeviceList().then((res) => {
       console.log({res});
@@ -21,21 +22,28 @@ export default function App() {
     });
   }
 
-  function printText() {
-    RNUSBPrinter.printBillTextWithCut('<C>HELLO PRINTER</C>');
+  function printText(content) {
+    RNUSBPrinter.printBillTextWithCut(content);
   }
 
   return (
-    <View>
-      <Text>APP</Text>
-
-      <Button title={'connect printer'} onPress={() => connectPrinter()} />
-      <Button
-        title={'Test Printer'}
-        onPress={() => {
-          printText();
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <TextInput
+        style={{borderWidth: 1, paddingHorizontal: 200, paddingVertical: 10}}
+        placeholder={'text to be printed ! '}
+        onChangeText={(v) => {
+          settextContent(v);
+        }}
+        onSubmitEditing={() => {
+          printText(textContent);
         }}
       />
+
+      <View style={{alignSelf: 'flex-end', marginRight: 20}}>
+        <TouchableOpacity onPress={() => connectPrinter()}>
+          <Text style={{color: 'grey'}}>connect</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
