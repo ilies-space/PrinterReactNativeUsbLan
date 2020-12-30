@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
-import {Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Home from './src/screens/Home';
 
 export default function App() {
-  const [isConnected, setisConnected] = useState(true);
+  const [isConnected, setisConnected] = useState(false);
   const mainColor = '#53CA83';
   return (
     <View
@@ -42,7 +49,7 @@ export default function App() {
         <View>
           <View
             style={{
-              flexDirection: 'row',
+              // flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -50,15 +57,15 @@ export default function App() {
               style={{
                 height: 55,
                 width: 55,
-                backgroundColor: '#e84118',
+                backgroundColor: 'black',
                 borderRadius: 55 / 2,
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginHorizontal: 20,
               }}>
-              <Text style={{color: 'white'}}>IMG</Text>
+              <ActivityIndicator color={mainColor} />
             </View>
-            <Text style={{color: 'white'}}>No printer coonected</Text>
+            <Text style={{color: 'white'}}>Connect your printer usb</Text>
           </View>
         </View>
       )}
@@ -71,7 +78,27 @@ export default function App() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{color: 'white'}}>IMG plceholder Area</Text>
+        {isConnected ? (
+          <Text style={{color: 'white'}}>IMG plceholder Area Connected</Text>
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              height: '100%',
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={{
+                uri:
+                  'https://i.pinimg.com/originals/3d/f7/de/3df7def21d498d53c1817f0434ce0de4.png',
+              }}
+              source={require('./assets/usbcable.png')}
+              style={{width: 250, height: 250, padding: 10}}
+            />
+          </View>
+        )}
       </View>
 
       <View
