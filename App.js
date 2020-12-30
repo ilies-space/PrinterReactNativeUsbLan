@@ -175,6 +175,14 @@ export default function App() {
                   right: -50,
                 }}
               />
+              <View style={{alignItems: 'center'}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log('print Ticket');
+                  }}>
+                  <Text style={{color: mainColor}}>TICKET</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         ) : (
