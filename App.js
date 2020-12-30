@@ -67,33 +67,33 @@ export default function App() {
     connectPrinter();
     // happyNewYear();
 
-    console.log('________________________________________________');
-    const productName = 'COCACO';
-    const productPrice = '300';
+    // console.log('________________________________________________');
+    // const productName = 'COCACO';
+    // const productPrice = '300';
 
-    function calculateLeftSpace(name) {
-      return 33 - name.length;
-    }
+    // function calculateLeftSpace(name) {
+    //   return 33 - name.length;
+    // }
 
-    function generateSpaces(numberOfSpaces) {
-      // for (let index = 0; index < numberOfSpaces; index++) {
-      //   return '&nbsp';
-      // }
-      let spaces = ' ';
+    // function generateSpaces(numberOfSpaces) {
+    //   // for (let index = 0; index < numberOfSpaces; index++) {
+    //   //   return '&nbsp';
+    //   // }
+    //   let spaces = ' ';
 
-      for (let index = 0; index < numberOfSpaces; index++) {
-        spaces = spaces + ' ';
-      }
-      return spaces;
-    }
+    //   for (let index = 0; index < numberOfSpaces; index++) {
+    //     spaces = spaces + ' ';
+    //   }
+    //   return spaces;
+    // }
 
-    let productArticle =
-      productName.substring(0, 20) +
-      '' +
-      generateSpaces(calculateLeftSpace(productName.substring(0, 20))) +
-      productPrice;
+    // let productArticle =
+    //   productName.substring(0, 20) +
+    //   '' +
+    //   generateSpaces(calculateLeftSpace(productName.substring(0, 20))) +
+    //   productPrice;
 
-    RNUSBPrinter.printBillTextWithCut('     ' + productArticle);
+    // RNUSBPrinter.printBillTextWithCut('     ' + productArticle);
   }, []);
 
   const [textToPrint, settextToPrint] = useState('');
