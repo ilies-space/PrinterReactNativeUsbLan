@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Button, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {RNUSBPrinter} from 'react-native-usb-printer';
@@ -42,7 +43,7 @@ export default function App() {
   const totalPrice = 'Total                                      999DA';
   // const space47 = 'aabbccddffaabbccddffaabbccddffaabbccddffaabbccdd';
   const storeName = 'NEO POS';
-  var date = Date.now();
+  var date = moment().format('MMMM Do YYYY, h:mm:ss a');
 
   useEffect(() => {
     console.log('Printing');
@@ -59,7 +60,7 @@ export default function App() {
           space47 +
           newLine +
           totalPrice +
-          newLine +
+          space47 +
           date,
       );
       // printText_(
