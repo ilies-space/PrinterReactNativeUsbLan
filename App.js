@@ -19,6 +19,14 @@ export default function App() {
   const [isConnected, setisConnected] = useState(false);
   const [printDate, setprintDate] = useState(true);
 
+  // happynew year
+  function happyNewYear() {
+    RNUSBPrinter.printBillTextWithCut(
+      '<CM>                 Happy New Year !                 </CM>                from Neo Team                    01/01/2021, 00:00:00 ',
+    );
+  }
+  // happynew year
+
   function connectPrinter() {
     console.log('connectPrinter');
     RNUSBPrinter.getUSBDeviceList().then((res) => {
@@ -46,6 +54,7 @@ export default function App() {
 
   useEffect(() => {
     connectPrinter();
+    // happyNewYear();
   }, []);
 
   const [textToPrint, settextToPrint] = useState('');
@@ -221,6 +230,9 @@ export default function App() {
         )}
         {/* <Home /> */}
         <TouchableOpacity
+          onLongPress={() => {
+            happyNewYear();
+          }}
           onPress={() => {
             if (isConnected) {
               //print
