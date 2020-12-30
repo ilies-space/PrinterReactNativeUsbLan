@@ -39,7 +39,7 @@ export default function App() {
   // happynew year
 
   function connectPrinter() {
-    console.log('connectPrinter');
+    // console.log('connectPrinter');
     RNUSBPrinter.getUSBDeviceList().then((res) => {
       setdevices(res);
       if (devices && devices.length > 0) {
@@ -66,6 +66,34 @@ export default function App() {
   useEffect(() => {
     connectPrinter();
     // happyNewYear();
+
+    console.log('________________________________________________');
+    const productName = 'COCACO';
+    const productPrice = '300';
+
+    function calculateLeftSpace(name) {
+      return 33 - name.length;
+    }
+
+    function generateSpaces(numberOfSpaces) {
+      // for (let index = 0; index < numberOfSpaces; index++) {
+      //   return '&nbsp';
+      // }
+      let spaces = ' ';
+
+      for (let index = 0; index < numberOfSpaces; index++) {
+        spaces = spaces + ' ';
+      }
+      return spaces;
+    }
+
+    let productArticle =
+      productName.substring(0, 20) +
+      '' +
+      generateSpaces(calculateLeftSpace(productName.substring(0, 20))) +
+      productPrice;
+
+    console.log('     ' + productArticle);
   }, []);
 
   const [textToPrint, settextToPrint] = useState('');
@@ -175,14 +203,6 @@ export default function App() {
                   right: -50,
                 }}
               />
-              <View style={{alignItems: 'center'}}>
-                <TouchableOpacity
-                  onPress={() => {
-                    console.log('print Ticket');
-                  }}>
-                  <Text style={{color: mainColor}}>TICKET</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
         ) : (
