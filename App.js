@@ -3,6 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {Button, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {RNUSBPrinter} from 'react-native-usb-printer';
 
+//UPDATING GitIgnore
+
 export default function App() {
   const [textContent, settextContent] = useState('hello World');
   const [isConnected, setisConnected] = useState(false);
