@@ -129,6 +129,7 @@ android {
     }
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.printerreactnativeusblan"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

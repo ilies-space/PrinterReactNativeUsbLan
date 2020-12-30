@@ -21,8 +21,19 @@ export default function App() {
 
   // happynew year
   function happyNewYear() {
+    var newLane = '                                               ';
+    const space47 = '------------------------------------------------';
+
     RNUSBPrinter.printBillTextWithCut(
-      '<CM>                 Happy New Year !                 </CM>                from Neo Team                    01/01/2021, 00:00:00 ',
+      space47 +
+        '<CM><B>     Happy New Year !    </B></CM>                ' +
+        newLane +
+        'from Neo Team                   ' +
+        newLane +
+        space47 +
+        newLane +
+        ' 01/01/2021, 00:00:00 ',
+      +newLane,
     );
   }
   // happynew year
