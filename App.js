@@ -79,7 +79,31 @@ export default function App() {
           justifyContent: 'center',
         }}>
         {isConnected ? (
-          <Text style={{color: 'white'}}>IMG plceholder Area Connected</Text>
+          <View
+            style={{
+              flex: 1,
+              height: '100%',
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View style={{width: 200, height: 200}}>
+              <Image
+                source={require('./assets/printer.png')}
+                style={{width: 200, height: 200, padding: 10}}
+              />
+              <Image
+                source={require('./assets/check.png')}
+                style={{
+                  width: 90,
+                  height: 90,
+                  position: 'absolute',
+                  bottom: 20,
+                  right: -50,
+                }}
+              />
+            </View>
+          </View>
         ) : (
           <View
             style={{
@@ -90,10 +114,6 @@ export default function App() {
               justifyContent: 'center',
             }}>
             <Image
-              source={{
-                uri:
-                  'https://i.pinimg.com/originals/3d/f7/de/3df7def21d498d53c1817f0434ce0de4.png',
-              }}
               source={require('./assets/usbcable.png')}
               style={{width: 250, height: 250, padding: 10}}
             />
@@ -106,7 +126,7 @@ export default function App() {
           backgroundColor: '#1e272e',
           height: '30%',
           borderTopLeftRadius: 80,
-          // borderTopRightRadius: 80,
+          borderTopRightRadius: 80,
           alignItems: 'center',
           justifyContent: 'center',
           marginHorizontal: 20,
@@ -120,8 +140,8 @@ export default function App() {
               style={{
                 borderWidth: 0.5,
                 borderColor: 'white',
-                paddingHorizontal: '20%',
-                paddingVertical: '1.5%',
+                // paddingHorizontal: '20%',
+                width: 250,
                 borderRadius: 10,
                 marginVertical: '2%',
                 color: 'white',
@@ -135,9 +155,12 @@ export default function App() {
         <TouchableOpacity
           style={{
             backgroundColor: mainColor,
-            paddingHorizontal: '5%',
-            paddingVertical: '1%',
+
             borderRadius: 20,
+            height: 50,
+            width: 150,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
           {isConnected ? (
             <Text style={{color: 'white'}}>PRINT</Text>
