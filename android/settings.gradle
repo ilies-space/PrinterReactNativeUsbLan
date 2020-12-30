@@ -1,4 +1,6 @@
 rootProject.name = 'PrinterReactNativeUsbLan'
+include ':@react-native-community_checkbox'
+project(':@react-native-community_checkbox').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/checkbox/android')
 include ':react-native-usb-printer'
 project(':react-native-usb-printer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-usb-printer/android')
 include ':react-native-usb-printer'

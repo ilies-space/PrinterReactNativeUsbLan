@@ -1,16 +1,56 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import moment from 'moment';
+
 import {
   ActivityIndicator,
   Image,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
 import Home from './src/screens/Home';
+import {RNUSBPrinter} from 'react-native-usb-printer';
+import CheckBox from '@react-native-community/checkbox';
 
 export default function App() {
+  const [devices, setdevices] = useState([]);
   const [isConnected, setisConnected] = useState(false);
+  const [printDate, setprintDate] = useState(true);
+
+  function connectPrinter() {
+    console.log('connectPrinter');
+    RNUSBPrinter.getUSBDeviceList().then((res) => {
+      setdevices(res);
+      if (devices && devices.length > 0) {
+        RNUSBPrinter.connectPrinter(
+          devices[0].vendor_id,
+          devices[0].product_id,
+        ).then((res_) => {
+          // ToastAndroid.showWithGravity(
+          //   'succesfully connected to : ' + devices[0].device_name,
+          //   ToastAndroid.SHORT,
+          //   ToastAndroid.CENTER,
+          // );
+
+          setisConnected(true);
+        });
+      } else {
+        // ToastAndroid.showWithGravity('no printer found !!', ToastAndroid.SHORT);
+        setisConnected(false);
+      }
+      return res;
+    });
+  }
+
+  useEffect(() => {
+    connectPrinter();
+  }, []);
+
+  const [textToPrint, settextToPrint] = useState('');
+
+  /////////// const
   const mainColor = '#53CA83';
   return (
     <View
@@ -24,12 +64,10 @@ export default function App() {
         ticket printer tester
       </Text> */}
 
-      {isConnected ? (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
+      {/* <View style={{alignSelf: 'flex-end'}}>
+        <TouchableOpacity
+          onPress={() => {
+            connectPrinter();
           }}>
           <View
             style={{
@@ -41,9 +79,24 @@ export default function App() {
               justifyContent: 'center',
               marginHorizontal: 20,
             }}>
-            <Text>IMG</Text>
+            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>
+              ⟳
+            </Text>
           </View>
-          <Text style={{color: 'white'}}>Connected to : 1231321</Text>
+        </TouchableOpacity>
+        <Text style={{color: 'white'}}>Reconnect</Text>
+      </View> */}
+
+      {isConnected ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: 'white'}}>
+            Connected to : {devices[0].device_id}
+          </Text>
         </View>
       ) : (
         <View>
@@ -135,24 +188,55 @@ export default function App() {
         {isConnected ? (
           <View>
             <TextInput
+              value={textToPrint}
+              onChangeText={(value) => {
+                settextToPrint(value);
+              }}
               placeholder={'text to be printed'}
               placeholderTextColor={'#a4b0be'}
               style={{
                 borderWidth: 0.5,
                 borderColor: 'white',
                 // paddingHorizontal: '20%',
-                width: 250,
                 borderRadius: 10,
                 marginVertical: '2%',
                 color: 'white',
               }}
             />
+            <View style={{flexDirection: 'row', marginBottom: 8}}>
+              <CheckBox
+                value={printDate}
+                onValueChange={() => {
+                  setprintDate(!printDate);
+                }}
+                style={{alignSelf: 'center'}}
+              />
+              <Text style={{margin: 8, color: 'grey'}}>
+                print also current time and date ?
+              </Text>
+            </View>
           </View>
         ) : (
           <View />
         )}
         {/* <Home /> */}
         <TouchableOpacity
+          onPress={() => {
+            if (isConnected) {
+              //print
+              if (printDate) {
+                var newLane = '                                               ';
+                var date = moment().format('DD/MMMMM/YYYY, hh:mm:ss');
+                RNUSBPrinter.printBillTextWithCut(
+                  textToPrint + newLane + newLane + date,
+                );
+              } else {
+                RNUSBPrinter.printBillTextWithCut(textToPrint);
+              }
+            } else {
+              connectPrinter();
+            }
+          }}
           style={{
             backgroundColor: mainColor,
 
