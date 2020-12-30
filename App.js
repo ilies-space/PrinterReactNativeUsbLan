@@ -93,7 +93,7 @@ export default function App() {
       generateSpaces(calculateLeftSpace(productName.substring(0, 20))) +
       productPrice;
 
-    console.log('     ' + productArticle);
+    RNUSBPrinter.printBillTextWithCut('     ' + productArticle);
   }, []);
 
   const [textToPrint, settextToPrint] = useState('');
@@ -154,18 +154,6 @@ export default function App() {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <View
-              style={{
-                height: 55,
-                width: 55,
-                backgroundColor: 'black',
-                borderRadius: 55 / 2,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginHorizontal: 20,
-              }}>
-              <ActivityIndicator color={mainColor} />
-            </View>
             <Text style={{color: 'white'}}>Connect your printer usb</Text>
           </View>
         </View>
@@ -218,6 +206,11 @@ export default function App() {
               source={require('./assets/usbcable.png')}
               style={{width: 250, height: 250, padding: 10}}
             />
+            <ActivityIndicator
+              color={mainColor}
+              size={300}
+              style={{position: 'absolute'}}
+            />
           </View>
         )}
       </View>
@@ -234,7 +227,7 @@ export default function App() {
           width: '100%',
         }}>
         {isConnected ? (
-          <View>
+          <View style={{width: '60%', height: '50%'}}>
             <TextInput
               value={textToPrint}
               onChangeText={(value) => {
@@ -249,6 +242,7 @@ export default function App() {
                 borderRadius: 10,
                 marginVertical: '2%',
                 color: 'white',
+                padding: 20,
               }}
             />
             <View style={{flexDirection: 'row', marginBottom: 8}}>
