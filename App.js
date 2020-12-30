@@ -30,38 +30,50 @@ export default function App() {
   function printText_(content) {
     var toPrint = content.toString();
     // RNUSBPrinter.printText(toPrint);
-    RNUSBPrinter.printBillTextWithCut(toPrint);
+    const newLine = '                    ';
+
+    var date = moment().format('DD/MM/YYYY, hh:mm:ss');
+    RNUSBPrinter.printBillTextWithCut(toPrint + newLine + date);
+
+    // cutThepaper();
     // RNUSBPrinter.printText(toPrint);
     // RNUSBPrinter.printText(toPrint);
     // RNUSBPrinter.printBillTextWithCut('<C>HELLO</C>');
     // RNUSBPrinter.printText('HOLA');
   }
+  function cutThepaper() {
+    RNUSBPrinter.printText('  ');
+  }
 
   const space47 = '------------------------------------------------';
   const newLine = '                                                ';
-  const itemExmple = 'ProductExmple                               19DA';
+  const itemExmple = 'ProductExmple X1                            19DA';
   const totalPrice = 'Total                                      999DA';
   // const space47 = 'aabbccddffaabbccddffaabbccddffaabbccddffaabbccdd';
-  const storeName = 'NEO POS';
-  var date = moment().format('MMMM Do YYYY, h:mm:ss a');
+  const storeName = '                     storio                     ';
+
+  var date =
+    moment().format('DD/MM/YYYY, hh:mm:ss') + '                            ';
+  var ticketID = 'recu: #195645';
 
   useEffect(() => {
     console.log('Printing');
+    // printText_(itemExmple);
     if (false) {
-      printText_('<CM>' + storeName + '</CM>');
+      // printText_('<CM>' + storeName + '</CM>');
       printText_(
-        // storeName +
-        // newLine +
-        itemExmple +
+        storeName +
           newLine +
           itemExmple +
-          newLine +
+          // newLine +
           itemExmple +
           space47 +
-          newLine +
+          // newLine +
           totalPrice +
           space47 +
-          date,
+          date +
+          newLine +
+          ticketID,
       );
       // printText_(
       //   // storeName +
