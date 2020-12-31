@@ -65,6 +65,34 @@ export default function App() {
   }
 
   useEffect(() => {
+    var productName = 'ifriLOGLdlzkdlzkldkzldkzlkdlzkdlzkdlzkdlkzldkz';
+
+    if (productName.length > 20) {
+      productName = productName.substring(0, 20) + '...';
+    }
+
+    var price = '161';
+
+    var productName2 = 'COCAL';
+
+    var price2 = '162';
+
+    var GeneralSpaces = 45;
+
+    var NumberOfSpace = GeneralSpaces - (productName.length + price.length);
+
+    function generateSpaces(i) {
+      var spaces = ' ';
+      for (let index = 0; index < i; index++) {
+        spaces = spaces + ' ';
+      }
+      return spaces;
+    }
+
+    RNUSBPrinter.printBillTextWithCut(
+      productName + generateSpaces(NumberOfSpace) + price,
+    );
+
     connectPrinter();
     // happyNewYear();
 
