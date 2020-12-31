@@ -13,6 +13,7 @@ import {
 import Home from './src/screens/Home';
 import {RNUSBPrinter} from 'react-native-usb-printer';
 import CheckBox from '@react-native-community/checkbox';
+import {Data} from './src/Data/quotes';
 
 export default function App() {
   const [devices, setdevices] = useState([]);
@@ -264,7 +265,13 @@ export default function App() {
         {/* <Home /> */}
         <TouchableOpacity
           onLongPress={() => {
-            happyNewYear();
+            // happyNewYear();
+            var randomQuoteIndex = 0;
+            randomQuoteIndex = Math.floor(Math.random() * Math.floor(102));
+            var randomQuote = Data.quotes[randomQuoteIndex];
+            RNUSBPrinter.printBillTextWithCut(
+              randomQuote.quote + ' - ' + randomQuote.author,
+            );
           }}
           onPress={() => {
             if (isConnected) {
