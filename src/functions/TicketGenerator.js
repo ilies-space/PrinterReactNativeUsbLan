@@ -58,21 +58,22 @@ export function transactiondetailsFormated(collected, discount, change) {
 
 export function formatedDate() {
   var date = moment().format('DD/MM/YYYY, hh:mm:ss');
-  return 'Date     : ' + date;
+  return 'Date          : ' + date;
 }
 
 export function totalPriceFormated(total) {
   return '<CB>' + 'TOTAL :  ' + total + ' DA </CB>';
 }
 
-export function listFooterFormated(ticketID, adress) {
+export function listFooterFormated(ticketID_, adress_) {
+  var ticketID = 'ticket number : ' + ticketID_;
+  var adress = 'adress        : ' + adress_;
   return (
     '------------------------------------------------' +
     ticketID +
     generateSpaces(calculateNumberofSpaces(ticketID, '')) +
     formatedDate() +
     generateSpaces(calculateNumberofSpaces(formatedDate(), '')) +
-    'Adress   : ' +
     adress
   );
 }

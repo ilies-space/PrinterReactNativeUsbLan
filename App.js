@@ -74,44 +74,6 @@ export default function App() {
     });
   }
 
-  const listofProducts = [
-    {
-      productName: 'Elio 5L',
-
-      price: '635',
-    },
-    {
-      productName: 'Tomate 500G',
-
-      price: '98',
-    },
-    {
-      productName: 'Ifri 1.5L',
-
-      price: '30',
-    },
-    {
-      productName: 'RIZO RIS',
-
-      price: '68',
-    },
-    {
-      productName: 'GARRIDO Pois Chiche Garrido 1Kg',
-
-      price: '410',
-    },
-  ];
-  var storeNAME = 'Superette Marwan';
-  const collected = '1241 DA';
-  var change = '210 DA';
-  var discount = '250 DA';
-
-  const ticketID = 'Order id : #64521';
-
-  const adress = 'Mostaganem , cite bellevue 27000';
-
-  const totalPrice = '4500';
-
   useEffect(() => {}, []);
 
   const [textToPrint, settextToPrint] = useState('');
@@ -270,15 +232,32 @@ export default function App() {
             <Button
               title={'print ticket'}
               onPress={() => {
+                const listofProducts = [
+                  {
+                    productName: 'Ifri 1.5L',
+
+                    price: '30',
+                  },
+                  {
+                    productName: 'RIZO RIS',
+
+                    price: '68',
+                  },
+                  {
+                    productName: 'GARRIDO Pois Chiche Garrido 1Kg',
+
+                    price: '410',
+                  },
+                ];
                 printTicket(
-                  'STORE NAME',
+                  'Ghali ben',
                   listofProducts,
-                  '2200',
-                  '2500',
-                  '300',
-                  '00',
-                  '93125',
-                  'Mostaganem salamander cite bellvue',
+                  '10500',
+                  '12000 DA',
+                  '00 DA',
+                  '1500 DA',
+                  '#6699',
+                  'Plateau en face le Port De Mosta',
                 );
               }}
             />
