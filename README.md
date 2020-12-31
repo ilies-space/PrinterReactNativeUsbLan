@@ -1,4 +1,4 @@
-# PrintingAppReactNative
+# Tickets printer tool app
 
 print text using ticket printer and OTG cable from your phone
 
