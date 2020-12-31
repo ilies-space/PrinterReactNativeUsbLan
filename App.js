@@ -14,6 +14,10 @@ import Home from './src/screens/Home';
 import {RNUSBPrinter} from 'react-native-usb-printer';
 import CheckBox from '@react-native-community/checkbox';
 import {Data} from './src/Data/quotes';
+import {
+  calculateNumberofSpaces,
+  generateSpaces,
+} from './src/functions/TicketGenerator';
 
 export default function App() {
   const [devices, setdevices] = useState([]);
@@ -65,33 +69,86 @@ export default function App() {
   }
 
   useEffect(() => {
-    var productName = 'ifriLOGLdlzkdlzkldkzldkzlkdlzkdlzkdlzkdlkzldkz';
+    const listofProducts = [
+      {
+        productName: 'COCA COLA',
+
+        price: '161',
+      },
+      {
+        productName: 'ifri',
+
+        price: '25',
+      },
+      {
+        productName: 'Mina choco',
+
+        price: '250',
+      },
+      {
+        productName: 'maxon',
+
+        price: '55',
+      },
+      {
+        productName: 'COCA COLA',
+
+        price: '161',
+      },
+      {
+        productName: 'ifri',
+
+        price: '25',
+      },
+      {
+        productName: 'Mina choco',
+
+        price: '250',
+      },
+      {
+        productName: 'maxon',
+
+        price: '55',
+      },
+    ];
+
+    var ticketElements = '';
+
+    listofProducts.forEach((elm) => {
+      var productName = elm.productName;
+
+      var price = elm.price;
+
+      if (productName.length > 20) {
+        productName = productName.substring(0, 20) + '...';
+      }
+
+      const numberOfSpaces = calculateNumberofSpaces(productName, price);
+
+      const spaces = generateSpaces(numberOfSpaces);
+
+      const ItemFormated = productName + spaces + price + ' DZ';
+      ticketElements = ticketElements + ItemFormated;
+    });
+    RNUSBPrinter.printBillTextWithCut(ticketElements);
+
+    var productName = 'COCA COLA';
+
+    var price = '161';
 
     if (productName.length > 20) {
       productName = productName.substring(0, 20) + '...';
     }
 
-    var price = '161';
+    const numberOfSpaces = calculateNumberofSpaces(productName, price);
 
-    var productName2 = 'COCAL';
+    const spaces = generateSpaces(numberOfSpaces);
 
-    var price2 = '162';
+    const ItemFormated = productName + spaces + price;
 
-    var GeneralSpaces = 45;
-
-    var NumberOfSpace = GeneralSpaces - (productName.length + price.length);
-
-    function generateSpaces(i) {
-      var spaces = ' ';
-      for (let index = 0; index < i; index++) {
-        spaces = spaces + ' ';
-      }
-      return spaces;
-    }
-
-    RNUSBPrinter.printBillTextWithCut(
-      productName + generateSpaces(NumberOfSpace) + price,
-    );
+    // RNUSBPrinter.printBillTextWithCut(
+    //   ItemFormated + ItemFormated + ItemFormated,
+    // );
 
     connectPrinter();
     // happyNewYear();
