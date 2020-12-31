@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import {
   ActivityIndicator,
+  Button,
   Image,
   Text,
   TextInput,
@@ -16,7 +17,12 @@ import CheckBox from '@react-native-community/checkbox';
 import {Data} from './src/Data/quotes';
 import {
   calculateNumberofSpaces,
+  FormateOrderItems,
+  formateStoreName,
   generateSpaces,
+  listFooterFormated,
+  totalPriceFormated,
+  transactiondetailsFormated,
 } from './src/functions/TicketGenerator';
 
 export default function App() {
@@ -68,180 +74,69 @@ export default function App() {
     });
   }
 
-  useEffect(() => {
-    const listofProducts = [
-      {
-        productName: 'Elio 5L',
+  const listofProducts = [
+    {
+      productName: 'Elio 5L',
 
-        price: '635',
-      },
-      {
-        productName: 'Tomate 500G',
+      price: '635',
+    },
+    {
+      productName: 'Tomate 500G',
 
-        price: '98',
-      },
-      {
-        productName: 'Ifri 1.5L',
+      price: '98',
+    },
+    {
+      productName: 'Ifri 1.5L',
 
-        price: '30',
-      },
-      {
-        productName: 'RIZO RIS',
+      price: '30',
+    },
+    {
+      productName: 'RIZO RIS',
 
-        price: '68',
-      },
-      {
-        productName: 'GARRIDO Pois Chiche Garrido 1Kg',
+      price: '68',
+    },
+    {
+      productName: 'GARRIDO Pois Chiche Garrido 1Kg',
 
-        price: '410',
-      },
-    ];
+      price: '410',
+    },
+  ];
+  var storeNAME = 'Superette Marwan';
+  const collected = '1241 DA';
+  var change = '210 DA';
+  var discount = '250 DA';
 
-    var ticketElements = '';
+  const ticketID = 'Order id : #64521';
 
-    listofProducts.forEach((elm) => {
-      var productName = elm.productName;
+  const adress = 'Mostaganem , cite bellevue 27000';
 
-      var price = elm.price + ' DA';
+  const totalPrice = '4500';
 
-      if (productName.length > 40) {
-        productName = productName.substring(0, 40) + '...';
-      }
-
-      const numberOfSpaces = calculateNumberofSpaces(productName, price);
-
-      const spaces = generateSpaces(numberOfSpaces);
-
-      const ItemFormated = productName + spaces + price;
-      ticketElements = ticketElements + ItemFormated;
-    });
-
-    var date = moment().format('DD/MMMMM/YYYY, hh:mm:ss');
-
-    // RNUSBPrinter.printText('HI');
-
-    // ***-*-*-*-* print the ticket :---------------------------------------------------------------------
-
-    var storeNAME = 'Superette Marwan';
-    // storeNAME = "'<CB>" + storeNAME + "</CB>'";
-
-    // RNUSBPrinter.printText(storeNAME);
-    RNUSBPrinter.printText(generateSpaces(46 / 2) + storeNAME);
-
-    var dateFormated = date;
-
-    const totalPrice = '1241 DA';
-
-    ///--------------------------------------------------------
-
-    var change = '210 DA';
-    var discount = '250 DA';
-
-    const numberOfSpaces2 = calculateNumberofSpaces(
-      'Collected Amount',
-      totalPrice,
-    );
-
-    const numberOfSpacesdiscount = calculateNumberofSpaces(
-      'Discount',
-      discount,
-    );
-
-    const numberOfSpaces3 = calculateNumberofSpaces('Chnage Amount', change);
-    const numberOfSpaces4 = calculateNumberofSpaces('Discount', change);
-
-    const spaces2 = generateSpaces(numberOfSpaces2);
-    const numberOfSpacesdiscountspaces = generateSpaces(numberOfSpacesdiscount);
-    const spaces3 = generateSpaces(numberOfSpaces3);
-    const spaces4 = generateSpaces(numberOfSpaces4);
-
-    const ticketElements2 =
-      'Collected Amount' +
-      spaces2 +
-      totalPrice +
-      'Discount' +
-      numberOfSpacesdiscountspaces +
-      discount +
-      'Chnage Amount' +
-      spaces3 +
-      change;
-
-    // RNUSBPrinter.printText(ticketElements2);
-    RNUSBPrinter.printText(
-      ticketElements +
-        '------------------------------------------------' +
-        ticketElements2,
-    );
-
-    var total = '<CB>' + 'TOTAL :  ' + totalPrice + ' DA </CB>';
-
-    RNUSBPrinter.printText(total);
-
-    RNUSBPrinter.printBillTextWithCut(
-      '------------------------------------------------' +
-        dateFormated +
-        generateSpaces(date.length - 9) +
-        'Order id : #545454' +
-        generateSpaces(29),
-      // '------------------------------------------------',
-    );
-
-    // ***-*-*-*-* print the ticket :---------------------------------------------------------
-
-    var productName = 'COCA COLA';
-
-    var price = '161';
-
-    if (productName.length > 20) {
-      productName = productName.substring(0, 20) + '...';
-    }
-
-    const numberOfSpaces = calculateNumberofSpaces(productName, price);
-
-    const spaces = generateSpaces(numberOfSpaces);
-
-    const ItemFormated = productName + spaces + price;
-
-    // RNUSBPrinter.printBillTextWithCut(
-    //   ItemFormated + ItemFormated + ItemFormated,
-    // );
-
-    connectPrinter();
-    // happyNewYear();
-
-    // console.log('________________________________________________');
-    // const productName = 'COCACO';
-    // const productPrice = '300';
-
-    // function calculateLeftSpace(name) {
-    //   return 33 - name.length;
-    // }
-
-    // function generateSpaces(numberOfSpaces) {
-    //   // for (let index = 0; index < numberOfSpaces; index++) {
-    //   //   return '&nbsp';
-    //   // }
-    //   let spaces = ' ';
-
-    //   for (let index = 0; index < numberOfSpaces; index++) {
-    //     spaces = spaces + ' ';
-    //   }
-    //   return spaces;
-    // }
-
-    // let productArticle =
-    //   productName.substring(0, 20) +
-    //   '' +
-    //   generateSpaces(calculateLeftSpace(productName.substring(0, 20))) +
-    //   productPrice;
-
-    // RNUSBPrinter.printBillTextWithCut('     ' + productArticle);
-  }, []);
+  useEffect(() => {}, []);
 
   const [textToPrint, settextToPrint] = useState('');
 
   /////////// const
   const mainColor = '#53CA83';
+
+  function printTicket(
+    storeNAME,
+    listofProducts,
+    totalPrice,
+    collected,
+    change,
+    discount,
+    ticketID,
+    adress,
+  ) {
+    RNUSBPrinter.printText(formateStoreName(storeNAME));
+    RNUSBPrinter.printText(
+      FormateOrderItems(listofProducts) +
+        transactiondetailsFormated(collected, change, discount),
+    );
+    RNUSBPrinter.printText(totalPriceFormated(totalPrice));
+    RNUSBPrinter.printBillTextWithCut(listFooterFormated(ticketID, adress));
+  }
   return (
     <View
       style={{
@@ -372,6 +267,21 @@ export default function App() {
                 print also current time and date ?
               </Text>
             </View>
+            <Button
+              title={'print ticket'}
+              onPress={() => {
+                printTicket(
+                  'STORE NAME',
+                  listofProducts,
+                  '2200',
+                  '2500',
+                  '300',
+                  '00',
+                  '93125',
+                  'Mostaganem salamander cite bellvue',
+                );
+              }}
+            />
           </View>
         ) : (
           <View />
