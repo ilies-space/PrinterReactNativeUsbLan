@@ -71,44 +71,29 @@ export default function App() {
   useEffect(() => {
     const listofProducts = [
       {
-        productName: 'COCA COLA',
+        productName: 'Elio 5L',
 
-        price: '161',
+        price: '635',
       },
       {
-        productName: 'ifri',
+        productName: 'Tomate 500G',
 
-        price: '25',
+        price: '98',
       },
       {
-        productName: 'Mina choco',
+        productName: 'Ifri 1.5L',
 
-        price: '250',
+        price: '30',
       },
       {
-        productName: 'maxon',
+        productName: 'RIZO RIS',
 
-        price: '55',
+        price: '68',
       },
       {
-        productName: 'COCA COLA',
+        productName: 'GARRIDO Pois Chiche Garrido 1Kg',
 
-        price: '161',
-      },
-      {
-        productName: 'ifri',
-
-        price: '25',
-      },
-      {
-        productName: 'Mina choco',
-
-        price: '250',
-      },
-      {
-        productName: 'maxon',
-
-        price: '55',
+        price: '410',
       },
     ];
 
@@ -119,18 +104,88 @@ export default function App() {
 
       var price = elm.price;
 
-      if (productName.length > 20) {
-        productName = productName.substring(0, 20) + '...';
+      if (productName.length > 40) {
+        productName = productName.substring(0, 40) + '...';
       }
 
       const numberOfSpaces = calculateNumberofSpaces(productName, price);
 
       const spaces = generateSpaces(numberOfSpaces);
 
-      const ItemFormated = productName + spaces + price + ' DZ';
+      const ItemFormated = productName + spaces + price;
       ticketElements = ticketElements + ItemFormated;
     });
-    RNUSBPrinter.printBillTextWithCut(ticketElements);
+
+    var date = moment().format('DD/MMMMM/YYYY, hh:mm:ss');
+
+    // RNUSBPrinter.printText('HI');
+
+    // ***-*-*-*-* print the ticket :---------------------------------------------------------------------
+
+    var storeNAME = 'Superette Marwan';
+    storeNAME = "'<CB>" + storeNAME + "</CB>'";
+
+    RNUSBPrinter.printText(storeNAME);
+
+    var dateFormated = date;
+
+    const totalPrice = '1241';
+
+    ///--------------------------------------------------------
+
+    var change = '210';
+    var discount = '250';
+
+    const numberOfSpaces2 = calculateNumberofSpaces(
+      'Collected Amount',
+      totalPrice,
+    );
+
+    const numberOfSpacesdiscount = calculateNumberofSpaces(
+      'Discount',
+      discount,
+    );
+
+    const numberOfSpaces3 = calculateNumberofSpaces('Chnage Amount', change);
+    const numberOfSpaces4 = calculateNumberofSpaces('Discount', change);
+
+    const spaces2 = generateSpaces(numberOfSpaces2);
+    const numberOfSpacesdiscountspaces = generateSpaces(numberOfSpacesdiscount);
+    const spaces3 = generateSpaces(numberOfSpaces3);
+    const spaces4 = generateSpaces(numberOfSpaces4);
+
+    const ticketElements2 =
+      'Collected Amount' +
+      spaces2 +
+      totalPrice +
+      'Discount' +
+      numberOfSpacesdiscountspaces +
+      discount +
+      'Chnage Amount' +
+      spaces3 +
+      change;
+
+    // RNUSBPrinter.printText(ticketElements2);
+    RNUSBPrinter.printText(
+      ticketElements +
+        '------------------------------------------------' +
+        ticketElements2,
+    );
+
+    var total = '<CB>' + 'TOTAL :  ' + totalPrice + ' DA </CB>';
+
+    RNUSBPrinter.printText(total);
+
+    RNUSBPrinter.printBillTextWithCut(
+      '------------------------------------------------' +
+        dateFormated +
+        generateSpaces(date.length - 9) +
+        'Order id : #545454' +
+        generateSpaces(29),
+      // '------------------------------------------------',
+    );
+
+    // ***-*-*-*-* print the ticket :---------------------------------------------------------
 
     var productName = 'COCA COLA';
 
@@ -194,33 +249,6 @@ export default function App() {
         alignItems: 'center',
         paddingTop: '3%',
       }}>
-      {/* <Text style={{color: 'white', fontWeight: 'bold'}}>
-        ticket printer tester
-      </Text> */}
-
-      {/* <View style={{alignSelf: 'flex-end'}}>
-        <TouchableOpacity
-          onPress={() => {
-            connectPrinter();
-          }}>
-          <View
-            style={{
-              height: 55,
-              width: 55,
-              backgroundColor: mainColor,
-              borderRadius: 55 / 2,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginHorizontal: 20,
-            }}>
-            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>
-              ⟳
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <Text style={{color: 'white'}}>Reconnect</Text>
-      </View> */}
-
       {isConnected ? (
         <View
           style={{

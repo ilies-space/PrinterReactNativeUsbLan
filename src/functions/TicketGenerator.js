@@ -7,6 +7,6 @@ export function generateSpaces(numberOfspaces) {
 }
 
 export function calculateNumberofSpaces(productName, price) {
-  const GeneralSpaces = 44;
+  const GeneralSpaces = 47;
   return GeneralSpaces - (productName.length + price.length);
 }
