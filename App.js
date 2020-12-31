@@ -102,7 +102,7 @@ export default function App() {
     listofProducts.forEach((elm) => {
       var productName = elm.productName;
 
-      var price = elm.price;
+      var price = elm.price + ' DA';
 
       if (productName.length > 40) {
         productName = productName.substring(0, 40) + '...';
@@ -123,18 +123,19 @@ export default function App() {
     // ***-*-*-*-* print the ticket :---------------------------------------------------------------------
 
     var storeNAME = 'Superette Marwan';
-    storeNAME = "'<CB>" + storeNAME + "</CB>'";
+    // storeNAME = "'<CB>" + storeNAME + "</CB>'";
 
-    RNUSBPrinter.printText(storeNAME);
+    // RNUSBPrinter.printText(storeNAME);
+    RNUSBPrinter.printText(generateSpaces(46 / 2) + storeNAME);
 
     var dateFormated = date;
 
-    const totalPrice = '1241';
+    const totalPrice = '1241 DA';
 
     ///--------------------------------------------------------
 
-    var change = '210';
-    var discount = '250';
+    var change = '210 DA';
+    var discount = '250 DA';
 
     const numberOfSpaces2 = calculateNumberofSpaces(
       'Collected Amount',
